@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>COURSE: {{ course_info.name|upper }}</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(45deg, #303952, #485461, #5e72e4);
+            color: #ecf0f1;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        .logout {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: #c0392b;
+            color: #ecf0f1;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.2em;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .logout:hover {
+            background-color: #96281b;
+            color: #ffffff;
+        }
+
+        h1 {
+            font-size: 3em;
+            margin: 20px;
+            color: #fff;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        div {
+            background: #2f3640;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            max-width: 800px;
+            padding: 20px;
+            margin: 20px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        p {
+            font-size: 1.4em;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin-top: 10px;
+        }
+
+        li {
+            margin-bottom: 5px;
+        }
+
+        a {
+            color: #e44d26;
+            text-decoration: none;
+            font-weight: bold;
+            border: 2px solid #e44d26;
+            border-radius: 20px;
+            padding: 10px 20px;
+            display: inline-block;
+            transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        a:hover {
+            color: #fff;
+            background-color: #c5392b;
+            border-color: #fff;
+        }
+
+        /* Add animation classes */
+        .fade-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <a class="logout" href="{{ url_for('logout') }}">Logout</a>
+    <h1 class="fade-in">COURSE: {{ course_info.name|upper }}</h1>
+    <div class="fade-in">
+        <p><strong>Description:</strong> {{ course_info.description }}</p>
+        <p><strong>Instructor:</strong> {{ course_info.instructor }}</p>
+        <p><strong>Duration:</strong> {{ course_info.duration }}</p>
+        <p><strong>Level:</strong> {{ course_info.level }}</p>
+        <p><strong>Syntax:</strong> {{ course_info.syntax }}</p>
+        <p><strong>Uses:</strong> {{ course_info.uses }}</p>
+        
+        <!-- Display additional links -->
+        <p><strong>Additional Links:</strong></p>
+        <ul>
+            {% for link_name, link_url in course_info.urls.items() %}
+                <li><a href="{{ link_url }}" target="_blank">{{ link_name }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <script>
+        // JavaScript to add the fade-in effect
+        document.addEventListener('DOMContentLoaded', function() {
+            var title = document.querySelector('h1');
+            title.classList.add('fade-in');
+
+            var details = document.querySelector('div');
+            details.classList.add('fade-in');
+        });
+    </script>
+</body>
+</html>
